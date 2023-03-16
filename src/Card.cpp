@@ -12,9 +12,8 @@
 using namespace std;
 
 //--------------------------------------------------------------
-Card::Card(ofVec2f pos, ofColor color, int w, int h)
+Card::Card(ofVec2f pos, string f, int w, int h)
 {
-    backColor = ofColor(255, 0, 0);
     cardPosition = pos;
     width = w;
     height = h;
@@ -22,14 +21,14 @@ Card::Card(ofVec2f pos, ofColor color, int w, int h)
     status = 0; // start with back
     active = true;
     
-    mainColor = color;
+    fruit = f;
+    fruitImage.load("fruits/" + fruit + ".JPG");
+    backgroundImage.load("background.JPG");
         
 }
 //--------------------------------------------------------------
 Card::~Card()
-{
-    
-}
+{}
 
 // Getters
 //--------------------------------------------------------------
@@ -48,16 +47,6 @@ ofVec2f Card::getDimensions() {
 }
 
 //--------------------------------------------------------------
-ofColor Card::getMainColor() {
-    return mainColor;
-}
-
-//--------------------------------------------------------------
-ofColor Card::getBackColor() {
-    return backColor;
-}
-
-//--------------------------------------------------------------
 ofVec2f Card::getPosition() {
     return cardPosition;
 }
@@ -73,14 +62,21 @@ void Card::setActive(bool value) {
 }
 
 //--------------------------------------------------------------
+string Card::getFruit() {
+    return fruit;
+}
+
+//--------------------------------------------------------------
 void Card::draw()
 {
     //only draw if active
     if(active)
     {
-        ofColor colorToDraw = (status == 1) ? mainColor : backColor;
-        ofSetColor(colorToDraw);
-        ofDrawRectangle(cardPosition, width, height);
+        if(status == 1) {
+            fruitImage.draw(cardPosition.x, cardPosition.y, width, height);
+        } else {
+            backgroundImage.draw(cardPosition.x, cardPosition.y, width, height);
+        }
     }
 }
 
@@ -103,5 +99,5 @@ bool Card::checkIfClicked(int mouseX, int mouseY)
 
 //--------------------------------------------------------------
 bool Card::checkIfMatch(Card* otherCard) {
-    return otherCard->getMainColor() == mainColor;
+    return (otherCard->getFruit() == fruit && otherCard->getPosition() != cardPosition);
 }

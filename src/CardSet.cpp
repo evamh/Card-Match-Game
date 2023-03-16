@@ -9,11 +9,11 @@
 #include "Card.hpp"
 
 //--------------------------------------------------------------
-CardSet::CardSet(ofColor color, ofVec2f pos1, ofVec2f pos2, int w, int h)
+CardSet::CardSet(string fruit, ofVec2f pos1, ofVec2f pos2, int w, int h)
 {
-    cardColor = color;
-    card1 = new Card(pos1, cardColor, w, h);
-    card2 = new Card(pos2, cardColor, w, h);
+    cardFruit = fruit;
+    card1 = new Card(pos1, fruit, w, h);
+    card2 = new Card(pos2, fruit, w, h);
 };
 
 //--------------------------------------------------------------

@@ -19,13 +19,15 @@ private:
     int status;
     int width;
     int height;
-    ofColor mainColor;
-    ofColor backColor;
+    string fruit;
+    ofImage fruitImage;
+    ofImage backgroundImage;
+    
     ofVec2f cardPosition;
     bool active;
     
 public:
-    Card(ofVec2f pos, ofColor color, int w, int h);
+    Card(ofVec2f pos, string f, int w, int h);
     ~Card();
     
     // Getters
@@ -33,9 +35,10 @@ public:
     int getHeight();
     ofVec2f getDimensions();
     ofVec2f getPosition();
-    ofColor getMainColor();
     ofColor getBackColor();
     bool getActive();
+    string getFruit();
+    ofImage getFruitImage();
     
     // Setters
     void setActive(bool value);

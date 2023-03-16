@@ -15,10 +15,10 @@ class CardSet {
 private:
     Card* card1;
     Card* card2;
-    ofColor cardColor;
+    string cardFruit;
     
 public:
-    CardSet(ofColor color, ofVec2f pos1, ofVec2f pos2, int w, int h);
+    CardSet(string fruit, ofVec2f pos1, ofVec2f pos2, int w, int h);
     ~CardSet();
     Card* getCard1();
     Card* getCard2();
