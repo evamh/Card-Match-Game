@@ -63,7 +63,6 @@ class ofApp : public ofBaseApp{
     ofTrueTypeFont instructionsFont;
     ofTrueTypeFont wrongChoiceFont;
     
-    ofColor gameOverColor;
     ofColor matchColor;
     ofColor triesColor;
     ofColor instructionsColor;

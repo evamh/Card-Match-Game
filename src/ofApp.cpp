@@ -31,10 +31,9 @@ void ofApp::setup(){
     cardWidth = 80;
     cardHeight = 100;
     
-    gameOverColor = ofColor(255, 0, 0);
     triesColor = ofColor(0, 105, 160);
     matchColor = ofColor(255, 85, 0);
-    instructionsColor = ofColor(0, 255, 0);
+    instructionsColor = ofColor(245, 16, 62);
     
     string font = "Verdana";
     triesFont.load(font, 18);
@@ -64,10 +63,12 @@ void ofApp::update(){
         addWrongChoiceText = false;
     };
     
+    // If game is finished, switch to game over screen
     if(screen == "game" && checkIfGameOver()) {
         screen = "gameOver";
     };
     
+    // If gameOver and user chose to replay, go back to start screen
     if(screen == "gameOver" && replay) {
         screen = "start";
         replay = false;
@@ -92,7 +93,6 @@ void ofApp::draw(){
     if(screen == "gameOver") {
         gameOverScreen();
     };
-
 }
 
 //--------------------------------------------------------------
@@ -339,7 +339,7 @@ void ofApp::gameScreen() {
 //--------------------------------------------------------------
 void ofApp::gameOverScreen() {
     drawMatchString = false;
-    ofSetColor(gameOverColor);
+    ofSetColor(instructionsColor);
     gameOverFont.drawString("All cards matched!\nWould you like to start again? Press the space bar if so!", ofGetWindowWidth() * 0.2, ofGetWindowHeight() * 0.4);
 }
 
