@@ -55,11 +55,13 @@ class ofApp : public ofBaseApp{
     string screen;
     bool difficultyChosen;
     bool replay;
+    bool addWrongChoiceText;
     
     ofTrueTypeFont triesFont;
     ofTrueTypeFont matchFont;
     ofTrueTypeFont gameOverFont;
     ofTrueTypeFont instructionsFont;
+    ofTrueTypeFont wrongChoiceFont;
     
     ofColor gameOverColor;
     ofColor matchColor;

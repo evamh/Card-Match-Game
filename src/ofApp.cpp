@@ -41,21 +41,27 @@ void ofApp::setup(){
     gameOverFont.load(font, 14);
     matchFont.load(font, 20);
     instructionsFont.load(font, 14);
+    wrongChoiceFont.load(font, 12);
     
     // start with start screen
     screen = "start";
     difficultyChosen = false;
     replay = false;
+    addWrongChoiceText = false;
     
 }
 
 //--------------------------------------------------------------
 void ofApp::update(){
     
+    // Logic to switch between screens
+    
+    // Start screen and user chose difficulty level -> start game!
     if(screen == "start" && difficultyChosen) {
         setupGame();
         screen = "game";
         difficultyChosen = false;
+        addWrongChoiceText = false;
     };
     
     if(screen == "game" && checkIfGameOver()) {
@@ -122,18 +128,23 @@ void ofApp::keyPressed(int key){
         switch(key) {
         case 'e':
             numSetCards = 5;
+            difficultyChosen = true;
             break;
         case 'm':
             numSetCards = 10;
+            difficultyChosen = true;
             break;
         case 'h':
             numSetCards = 20;
+            difficultyChosen = true;
             break;
         default:
+            addWrongChoiceText = true;
             cout << "wrong choice!" << endl;
+
         };
         
-        difficultyChosen = true;
+        //difficultyChosen = true;
     } else if(screen == "gameOver") {
         if(key == ' ') {
             replay = true;
@@ -296,6 +307,11 @@ void ofApp::updateNumTries() {
 void ofApp::startScreen() {
     ofSetColor(instructionsColor);
     instructionsFont.drawString("Welcome to the card match game! Please choose your difficulty level:\n 'e' (easy), 'm' (medium), 'h' (hard)", ofGetWindowWidth() * 0.1, ofGetWindowHeight() * 0.4);
+    
+    if(addWrongChoiceText) {
+        ofSetColor(instructionsColor);
+        wrongChoiceFont.drawString("Whoops, can't recognize that character! Please try again!", ofGetWindowWidth() * 0.2, ofGetWindowHeight() * 0.7);
+    }
 }
 
 //--------------------------------------------------------------
@@ -326,4 +342,5 @@ void ofApp::gameOverScreen() {
     ofSetColor(gameOverColor);
     gameOverFont.drawString("All cards matched!\nWould you like to start again? Press the space bar if so!", ofGetWindowWidth() * 0.2, ofGetWindowHeight() * 0.4);
 }
+
 
