@@ -8,7 +8,7 @@ I recreated this game using openFrameworks and gave it a fruit theme. The aim of
 
 ## Code
 
-This game is built in openFrameworks and uses the ofApp() class and a newly built Card class.
+This game is built in openFrameworks and uses the ofApp() class and a new Card() class.
 
 ### Card 
 
