@@ -32,6 +32,7 @@ This is the first screen the user sees, and it provides instructions on how to b
 
 If the user presses a character other than 'e', 'm' or 'h', text appears on the screen to warn that the character can't be recognised and to try again. 
 
+<img src="https://git.arts.ac.uk/storage/user/650/files/e3396a86-ffca-4cd7-8f5a-c6081cafc590" width="45%"> <img src="https://git.arts.ac.uk/storage/user/650/files/cbd03521-9dfc-4df9-84f2-72e7b25b9ffc" width="45%">
 
 
 ### Game 
