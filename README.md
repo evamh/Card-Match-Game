@@ -1,6 +1,5 @@
 # Card Match Game - match the cards together!
 
-
 For my final project, I decided to recreate the classic card match game. This is a memory game where the player is presented with an even number of cards face down, and have to flip them over in order to try and pair them together. Only two cards at most can be face up. If the two cards match, they get taken away. If they don't match, they are flipped over again and the user keeps trying. The game is over once all the cards are cleared!
 
 I recreated this game using openFrameworks and gave it a fruit theme. The aim of the game is to match all the fruits together!
@@ -33,8 +32,13 @@ This is the first screen the user sees, and it provides instructions on how to b
 
 If the user presses a character other than 'e', 'm' or 'h', text appears on the screen to warn that the character can't be recognised and to try again. 
 
+
+
 ### Game 
 This is the main screen where the user can play the game! Depending on the difficulty level chosen, a number of cards will appear on the screen at random locations. The user needs to click on a card, one at a time, to match them up. Only two cards can be face up at any time. If the second card matches the first, they're cleared from the screen. Otherwise, they turn back over.
+
+<img src="https://git.arts.ac.uk/storage/user/650/files/79576c43-7199-427f-9a82-595765528b86" width="30%"> <img src="https://git.arts.ac.uk/storage/user/650/files/95e68339-8a38-4f8a-ad64-db6747f331b5" width="30%"> <img src="https://git.arts.ac.uk/storage/user/650/files/a115fed7-6264-4315-9bca-52f58877ddb7" width="30%">
+
 
 The number of tries is recorded and displayed at the top of the screen. A try counts as every time a user attempts to match a set of cards (so clicking on two cards = 1 try). 
 
@@ -42,8 +46,13 @@ The locations of each card are randomly generated using a helper function **find
 
 The helper function **testIfCardsMatch()** is called every time two cards are clicked on. It checks that the second card matches the first (using the checkIfMatch() function in the Card class), and if so, sets the active property of both cards to false. This ensures that they aren't drawn to the screen in the subsequent frames. Text is also displayed at the top of the screen for 3 seconds to indicate a match was made. 
 
+<img src="https://git.arts.ac.uk/storage/user/650/files/1164ff01-9cd9-497c-a9b5-6a1d4109a0a5" width="45%"> <img src="https://git.arts.ac.uk/storage/user/650/files/0f853a7b-c0af-4b92-aee2-d6f42b99ba8f" width="45%">
 
 ### Game Over
+The game moves into the 'game over' screen once all the cards are cleared. This screen tells the user the game is over and to press the spacebar if they want to start again. The keyPressed() function waits for the spacebar to be clicked and if so, sets the 'replay' variable to true so that the game goes back to the start screen. 
+
+<img src="https://git.arts.ac.uk/storage/user/650/files/8ea0f8c9-0787-4b0a-8c98-0ca0acedf24e" width="45%">
+
 
 ## Cards
 
