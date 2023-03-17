@@ -4,6 +4,8 @@ For my final project, I recereated the classic card-match game. This is a memory
 
 I recreated this game using openFrameworks and gave it a fruit theme. The aim of the game is to match all the fruits together!
 
+*Note*: in the directory *cardMatchGame/bin*, the application file "cardMatchGameDebug" was removed as it was too large to upload to Git. 
+
 ## Code
 
 This game is built in openFrameworks and uses the ofApp() class and a newly built Card class to run the main logic of the game. 
