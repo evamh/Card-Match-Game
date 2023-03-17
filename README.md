@@ -38,7 +38,7 @@ This is the main screen where the user can play the game! Depending on the diffi
 
 The number of tries is recorded and displayed at the top of the screen. A try counts as every time a user attempts to match a set of cards (so clicking on two cards = 1 try). 
 
-The locations of each card are randomly generated using a helper function findFreePosition() which returns an ofVec2f object. 
+The locations of each card are randomly generated using a helper function findFreePosition() which returns an ofVec2f object. This function uses a do...while loop to generate a random set of (x,y) coordinates, and then loops over each existing card to make sure there is no overlap. If there is an overlap with any card, it breaks and goes into the next loop (so tries again). Otherwise, it assumes a free position and returns that set of coordinates. This function is called each time a new card is created. 
 
 
 ### Game Over
