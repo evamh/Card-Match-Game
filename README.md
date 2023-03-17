@@ -55,7 +55,7 @@ The code for the game screen is in the function **gameScreen()**.
 
 
 ### Game Over
-The game moves into the 'game over' screen once all the cards are cleared. This screen tells the user the game is over and to press the spacebar if they want to start again. The keyPressed() function waits for the spacebar to be clicked and if so, sets the 'replay' variable to true so that the game goes back to the start screen. Back in the start screen, the **setupGame()** function is called to reset all game-dependent variables (such as the cards, number of tries, etc). 
+The game moves into the 'game over' screen once all the cards are cleared. This screen tells the user the game is over and to press the spacebar if they want to replay the game. The keyPressed() function waits for the spacebar to be pressed and if so, sets the 'replay' variable to true so that the game goes back to the start screen. Back in the start screen, the **setupGame()** function is called to reset all game-dependent variables (such as the cards, number of tries, etc). 
 
 <img src="https://git.arts.ac.uk/storage/user/650/files/8ea0f8c9-0787-4b0a-8c98-0ca0acedf24e" width="45%">
 
@@ -64,6 +64,23 @@ The code for the game over screen is in the function **gameOverScreen()**.
 
 ## Cards
 
+I drew the cards using the Adobe Fresco app, and chose to do a fruit theme. Each fruit card has a color scheme, a border drawn in the main color, a background drawn in a lighter shade of that color, and the fruit itself in the center. I drew an image for the back of the cards (first image below) and separate cards for the following fruits:
+- Apple
+- Apricot
+- Blueberry
+- Cherry
+- Grape
+- Kiwi
+- Lemon
+- Orange
+- Pear
+- Raspberry
+- Strawberry 
+- Watermelon
+
+<img src="https://git.arts.ac.uk/storage/user/650/files/8423d7fc-6586-4045-aeb3-91d373ebae5b" width="10%"> <img src="https://git.arts.ac.uk/storage/user/650/files/a0191b45-59c3-44a0-8581-29a8268425c4" width="10%"> <img src="https://git.arts.ac.uk/storage/user/650/files/4756356f-a984-454b-965c-d3e42c090eaa" width="10%"> <img src="https://git.arts.ac.uk/storage/user/650/files/81bc2be9-1884-40d0-a6f2-7834ec1cf159" width="10%"> <img src="https://git.arts.ac.uk/storage/user/650/files/f763d490-37ba-4d93-a9e9-ca8a29fc2d62" width="10%"> <img src="https://git.arts.ac.uk/storage/user/650/files/b0091b70-741a-4baa-9c95-c67b06197df9" width="10%"> <img src="https://git.arts.ac.uk/storage/user/650/files/b50b6f9a-3779-46d0-a060-d8190c6a769e" width="10%"> <img src="https://git.arts.ac.uk/storage/user/650/files/9c17fedb-3ee1-42be-af95-58542e7bc2b4" width="10%"> <img src="https://git.arts.ac.uk/storage/user/650/files/8cbb08b7-c4f9-4e14-81b9-bb54e168f8bf" width="10%"> <img src="https://git.arts.ac.uk/storage/user/650/files/7a82a8a4-bf19-4996-be72-cda87111585f" width="10%"> <img src="https://git.arts.ac.uk/storage/user/650/files/6cfba2a1-580a-44d1-8ea3-623f89139eba" width="10%"> <img src="https://git.arts.ac.uk/storage/user/650/files/a97b61c0-e6b4-461a-9b53-3b83d1e9897a" width="10%"> <img src="https://git.arts.ac.uk/storage/user/650/files/6acc60bb-4f99-46b4-b943-560a50381528" width="10%">
+
+The cards are drawn in the game via ofImage objects. 
 
 ## Future additions
 
