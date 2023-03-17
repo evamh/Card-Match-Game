@@ -17,6 +17,32 @@ The methods in **Card** include getters, **draw()** which draws the card to the 
 
 ### ofApp
 
+The main logic of the game is in ofApp. This sets up the variables for the game, including the various text fonts, the font colours and background colour, boolean values that are used to decide at which stage the game is at, and helper functions. All of the text is drawn to the screen using ofTrueTypeFont objects.
+
+The game is composed of three screens:
+1. **Start** - provides the instructions for the game and allows the user to choose the difficulty level
+2. **Game** - the main game screen where the user can play the game
+3. **Game Over** - the screen shown once the user has matched all the cards. By pressing the space bar the user can go back to the Start screen and play again.
+
+
+### Start
+This is the first screen the user sees, and it provides instructions on how to begin the game. The user has to choose a difficulty level using the keyboard ('e' for easy, 'm' for medium and 'h' for hard). The difficulty level sets the total number of cards that the user has to match together:
+- 5 sets for difficulty = easy
+- 10 sets for difficulty = medium
+- 20 sets for difficulty = hard
+
+If the user presses a character other than 'e', 'm' or 'h', text appears on the screen to warn that the character can't be recognised and to try again. 
+
+### Game 
+This is the main screen where the user can play the game! Depending on the difficulty level chosen, a number of cards will appear on the screen at random locations. The user needs to click on a card, one at a time, to match them up. Only two cards can be face up at any time. If the second card matches the first, they're cleared from the screen. Otherwise, they turn back over.
+
+The number of tries is recorded and displayed at the top of the screen. A try counts as every time a user attempts to match a set of cards (so clicking on two cards = 1 try). 
+
+The locations of each card are randomly generated using a helper function findFreePosition() which returns an ofVec2f object. 
+
+
+### Game Over
+
 ## Cards
 
 
