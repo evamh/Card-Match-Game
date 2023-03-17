@@ -71,7 +71,7 @@ The code for the game over screen is in the function **gameOverScreen()**.
 
 ## Cards
 
-I drew the cards using the Adobe Fresco app, and chose to do a fruit theme. Each fruit has a color scheme which influnces how the card is created. A border is drawn in the main color, a background drawn in a lighter shade of that color, and the fruit itself is drawn in the center. In addition, I drew an image for the back of the cards (first image below). I created cards for the following fruits:
+I chose to do a fruit theme and drew the cards using the Adobe Fresco app. Each fruit has a color scheme which determines the card border and background color, and the fruit itself is drawn in the center of the card. In addition, I drew an image for the back of the cards which is common across all of the fruits (first image below). I created cards for the following fruits:
 - Apple
 - Apricot
 - Blueberry
@@ -92,10 +92,10 @@ The cards are drawn in the game using ofImage objects.
 ## Future additions
 
 There are several things I would like to add to the game in the future, including:
-1. Sounds and audio - such as background music and sounds when the user matches two cards 
-2. Button functionality - rather than using the keyboard for user input like choosing the difficulty or restarting the game
-3. Improving the fonts and background - to make it more fun
-4. Animation - animate the cards disappearing from the screen when the user matches two cards
+1. Adding audio such as background music and sound effects for when the user matches two cards 
+2. Using buttons rather than the keyboard for user input like choosing the difficulty or restarting the game
+3. Animating the cards disappearing from the screen
+4. Improving the fonts and background
 
 ## Video
 
