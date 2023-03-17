@@ -18,11 +18,14 @@ The methods in **Card** include getters, **draw()** which draws the card to the 
 
 The main logic of the game is in ofApp. The code here sets up the variables for the game, including the various text fonts, the font colours and background colour, boolean values that are used to decide at which stage the game is at, and helper functions. All of the text is drawn to the screen using ofTrueTypeFont objects.
 
+At the start of the game, the function **setupGame()** is called which sets up a game instance. This function resets any variables (like the cards array, the number of tries, the start time) and initialises new instances of Card based on a random fruit and location. Each card is pushed into a cards vector array to keep track of all of them. The number of cards instantiated depends on the difficulty level that the user chose. 
+
 The game is composed of three screens:
 1. **Start** - provides the instructions for the game and allows the user to choose the difficulty level
 2. **Game** - the main game screen where the user can play the game
 3. **Game Over** - the screen shown once the user has matched all the cards. By pressing the space bar the user can go back to the Start screen and play again.
 
+A variable 'screen' keeps track of which screen is currently being drawn. 
 
 ### Start
 This is the first screen the user sees, and it provides instructions on how to begin the game. The user has to choose a difficulty level using the keyboard ('e' for easy, 'm' for medium and 'h' for hard). The difficulty level sets the total number of cards that the user has to match together:
@@ -55,7 +58,7 @@ The code for the game screen is in the function **gameScreen()**.
 
 
 ### Game Over
-The game moves into the 'game over' screen once all the cards are cleared. This screen tells the user the game is over and to press the spacebar if they want to replay the game. The keyPressed() function waits for the spacebar to be pressed and if so, sets the 'replay' variable to true so that the game goes back to the start screen. Back in the start screen, the **setupGame()** function is called to reset all game-dependent variables (such as the cards, number of tries, etc). 
+The game moves into the 'gameOver' screen once all the cards are cleared. This screen tells the user the game is over and to press the spacebar if they want to replay the game. The keyPressed() function waits for the spacebar to be pressed and if so, sets the 'replay' variable to true so that the game goes back to the start screen. Back in the start screen, the **setupGame()** function is called to reset all game-dependent variables (such as the cards, number of tries, etc). 
 
 <img src="https://git.arts.ac.uk/storage/user/650/files/8ea0f8c9-0787-4b0a-8c98-0ca0acedf24e" width="45%">
 
@@ -86,5 +89,6 @@ The cards are drawn in the game via ofImage objects.
 
 There are several things I would like to add to the game in the future, including:
 1. A timed version - the user has to clear all the cards before the time runs out!
-2. Sounds and audio - such as background music and sounds when the player matches the card
+2. Sounds and audio - such as background music and sounds when the user matches two cards 
 3. Button functionality - rather than using the keyboard for difficulty/restarting the game 
+4. Animation - animate the cards disappearing from the screen when the user matches two cards
