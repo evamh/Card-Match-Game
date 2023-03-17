@@ -56,8 +56,10 @@ class ofApp : public ofBaseApp{
     bool difficultyChosen;
     bool replay;
     bool addWrongChoiceText;
+    bool win; 
     
     ofTrueTypeFont triesFont;
+    ofTrueTypeFont timerFont;
     ofTrueTypeFont matchFont;
     ofTrueTypeFont gameOverFont;
     ofTrueTypeFont instructionsFont;
@@ -71,8 +73,12 @@ class ofApp : public ofBaseApp{
     bool drawMatchString;
     
     void updateNumTries();
+    void updateTimer();
 
+    int startGameTime;
     int startMatchTime;
+    int timer;
+    int elapsed;
     
     ofImage backgroundCard;
     string getRandomFruit(vector<string> &fruits);

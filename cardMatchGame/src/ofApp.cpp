@@ -12,11 +12,7 @@ ofApp::~ofApp()
     {
         delete cards[i];
     }
-    
-   /* for(int j=0; j<cardsToTest.size(); j++)
-    {
-        delete cardsToTest[j];
-    }*/
+
 }
 
 
@@ -37,6 +33,7 @@ void ofApp::setup(){
     
     string font = "Arial";
     triesFont.load(font, 18);
+    timerFont.load(font, 18);
     gameOverFont.load(font, 16);
     matchFont.load(font, 16);
     instructionsFont.load(font, 16);
@@ -47,6 +44,8 @@ void ofApp::setup(){
     difficultyChosen = false;
     replay = false;
     addWrongChoiceText = false;
+    win = false;
+    elapsed = 0;
     
 }
 
@@ -72,13 +71,14 @@ void ofApp::update(){
     if(screen == "gameOver" && replay) {
         screen = "start";
         replay = false;
+        win = false;
     }
     
 }
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-    
+
     // instructions/start screen
     if(screen == "start") {
         startScreen();
@@ -86,6 +86,8 @@ void ofApp::draw(){
     
     // actual game
     if(screen == "game") {
+        // update timer
+        elapsed = (ofGetElapsedTimeMillis() - startGameTime);
         gameScreen();
     };
 
@@ -102,6 +104,8 @@ void ofApp::setupGame() {
     tries = 0;
     drawMatchString = false;
     startMatchTime = 0;
+    startGameTime = ofGetElapsedTimeMillis();
+    elapsed = 0;
 
     vector<string> fruits{"apple", "apricot", "blueberry", "cherry", "grape", "kiwi", "lemon", "orange", "pear","raspberry", "strawberry", "watermelon"};
     
@@ -110,7 +114,7 @@ void ofApp::setupGame() {
     {
         int index = ofRandom(fruits.size());
         string fruit = fruits[index];
-
+        
         cards.push_back(new Card(findFreePosition(), fruit, cardWidth, cardHeight));
         cards.push_back(new Card(findFreePosition(), fruit, cardWidth, cardHeight));
     }
@@ -119,17 +123,22 @@ void ofApp::setupGame() {
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
     if(screen == "start") {
+        
+        // set number of cards and timer
         switch(key) {
         case 'e':
             numSetCards = 5;
+            timer = 30000; // 30s
             difficultyChosen = true;
             break;
         case 'm':
             numSetCards = 10;
+            timer = 60000; //60s
             difficultyChosen = true;
             break;
         case 'h':
             numSetCards = 20;
+            timer = 90000; //90s
             difficultyChosen = true;
             break;
         default:
@@ -137,7 +146,6 @@ void ofApp::keyPressed(int key){
             cout << "wrong choice!" << endl;
         };
         
-        //difficultyChosen = true;
     } else if(screen == "gameOver") {
         if(key == ' ') {
             replay = true;
@@ -162,10 +170,11 @@ void ofApp::mousePressed(int x, int y, int button){
     
     for(int i=0; i<cards.size(); i++)
     {
+        // check that the card is clicked
         bool click = cards[i]->checkIfClicked(mouseX, mouseY);
         if(click)
         {
-            cardsToTest.push_back(cards[i]);
+            cardsToTest.push_back(cards[i]); // if so, add it to the array of cards to test
             cards[i]->flip();
         }
     }
@@ -191,6 +200,7 @@ ofVec2f ofApp::findFreePosition()
             int cardX = coordinates.x;
             int cardY = coordinates.y;
             
+            // check if overlap with the card's position
             overlap = (x + cardWidth >= cardX) && (x <= cardX + cardWidth) && (y + cardHeight >= cardY) && (y <= cardY + cardHeight);
 
             if(overlap) {
@@ -223,7 +233,7 @@ void ofApp::testIfCardsMatch() {
             cardsToTest[0]->setActive(false);
             cardsToTest[1]->setActive(false);
             
-            // script
+            // to inform the user of the match
             startMatchTime = ofGetElapsedTimeMillis();
             matchString = fruit;
             drawMatchString = true;
@@ -234,6 +244,13 @@ void ofApp::testIfCardsMatch() {
 //--------------------------------------------------------------
 bool ofApp::checkIfGameOver() {
     
+    // Either the timer ran out
+    if(elapsed >= timer) {
+        win = false;
+        return true;
+    }
+    
+    // OR all cards are matched
     int numInactive = 0;
     
     for(int i=0; i < cards.size(); i++)
@@ -241,7 +258,12 @@ bool ofApp::checkIfGameOver() {
         numInactive = cards[i]->getActive() ? numInactive : numInactive + 1;
     }
     
-    return numInactive == cards.size();
+    if(numInactive == cards.size()) {
+        win = true;
+        return true;
+    }
+    
+    return false;
 }
 
 //--------------------------------------------------------------
@@ -249,7 +271,22 @@ void ofApp::updateNumTries() {
     
     ofSetColor(triesColor);
     triesFont.drawString("Tries: " + to_string(tries), ofGetWindowWidth() * 0.8, ofGetWindowHeight() * 0.05);
-    ofSetColor(255);
+    ofSetColor(255); // reset
+}
+
+//--------------------------------------------------------------
+void ofApp::updateTimer() {
+    ofSetColor(triesColor);
+
+    // format the timer correctly in mm:ss format
+    int timeLeft = timer - elapsed;
+    int seconds = (timeLeft / 1000) % 60;
+    int minutes = (timeLeft / 1000) / 60;
+    string secondsFormatted = (seconds < 10) ? "0" + to_string(seconds) : to_string(seconds);
+    string timeLeftString = to_string(minutes) + ":" + secondsFormatted;
+
+    timerFont.drawString("Time left: " + timeLeftString, ofGetWindowWidth() * 0.1, ofGetWindowHeight() * 0.05);
+    ofSetColor(255); // reset
 }
 
 //--------------------------------------------------------------
@@ -272,13 +309,14 @@ void ofApp::gameScreen() {
     }
     
     updateNumTries();
+    updateTimer(); // update text
     
     // when there's a match, display a message with the fruit for 3 seconds
     if(drawMatchString) {
-        if(ofGetElapsedTimeMillis() - startMatchTime < 10000) {
+        if(ofGetElapsedTimeMillis() - startMatchTime < 3000) {
             ofSetColor(matchColor);
             matchFont.drawString("Matched " + matchString + "!", ofGetWindowWidth() * 0.3, ofGetWindowHeight() * 0.05);
-            ofSetColor(255);
+            ofSetColor(255); // reset
         } else {
             drawMatchString = false;
         }
@@ -289,7 +327,8 @@ void ofApp::gameScreen() {
 void ofApp::gameOverScreen() {
     drawMatchString = false;
     ofSetColor(instructionsColor);
-    gameOverFont.drawString("All cards matched!\nWould you like to start again? Press the space bar if so!", ofGetWindowWidth() * 0.2, ofGetWindowHeight() * 0.4);
+    string resultString = win ? "All cards matched!\nWould you like to start again? Press the space bar if so!" : "Too bad, time ran out!\n\n Press the space bar to try again!";
+    gameOverFont.drawString(resultString, ofGetWindowWidth() * 0.3, ofGetWindowHeight() * 0.4);
 }
 
 
