@@ -40,7 +40,6 @@ This is the main screen where the user can play the game! Depending on the diffi
 
 <img src="https://git.arts.ac.uk/storage/user/650/files/79576c43-7199-427f-9a82-595765528b86" width="30%"> <img src="https://git.arts.ac.uk/storage/user/650/files/95e68339-8a38-4f8a-ad64-db6747f331b5" width="30%"> <img src="https://git.arts.ac.uk/storage/user/650/files/a115fed7-6264-4315-9bca-52f58877ddb7" width="30%">
 
-
 The number of tries is recorded and displayed at the top of the screen. A try counts as every time a user attempts to match a set of cards (so clicking on two cards = 1 try). 
 
 The locations of each card are randomly generated using a helper function **findFreePosition()** which returns an ofVec2f object. This function uses a do...while loop to generate a random set of (x,y) coordinates, and then loops over each existing card to make sure there is no overlap. If there is an overlap with any card, it breaks and goes into the next loop (so tries again). Otherwise, it assumes a free position and returns that set of coordinates. This function is called each time a new card is created. 
