@@ -48,7 +48,7 @@ The number of tries is recorded and displayed at the top of the screen. A try co
 
 The locations of each card are randomly generated using a helper function **findFreePosition()** which returns an ofVec2f object. This function uses a do...while loop to generate a random set of (x,y) coordinates and to loop over each existing card to make sure there is no overlap. If there is an overlap with any card, it breaks and goes into the next loop (so tries again with a new set of randomly generated coordinates). Otherwise, it assumes a free position and returns those x, y values in an ofVec2f object. This function is called each time a new card is created. 
 
-The helper function **testIfCardsMatch()** is called every time two cards are clicked on. It checks that the second card matches the first (using the checkIfMatch() function in the Card class), and if so, sets the active property of both cards to false. This ensures that they aren't drawn to the screen in the subsequent frames. Text is also displayed at the top of the screen for 3 seconds to indicate a match was made. 
+The helper function **testIfCardsMatch()** is called every time two cards are clicked. It checks that the second card matches the first (using the checkIfMatch() function in the Card class), and if so, sets the active property of both cards to false. This ensures that they aren't drawn to the screen in the subsequent frames. Text is also displayed at the top of the screen for 3 seconds to indicate a match was made. 
 
 <img src="https://git.arts.ac.uk/storage/user/650/files/1164ff01-9cd9-497c-a9b5-6a1d4109a0a5" width="45%"> <img src="https://git.arts.ac.uk/storage/user/650/files/0f853a7b-c0af-4b92-aee2-d6f42b99ba8f" width="45%">
 
