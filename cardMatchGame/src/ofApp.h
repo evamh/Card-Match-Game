@@ -3,6 +3,7 @@
 #include "ofMain.h"
 #include "Card.hpp"
 #include <vector>
+#include "ofxGui.h"
 
 using namespace std;
 
@@ -12,6 +13,7 @@ class ofApp : public ofBaseApp{
 		void setup();
 		void update();
 		void draw();
+    void setupGame();
 
 		void keyPressed(int key);
 		void keyReleased(int key);
@@ -39,19 +41,31 @@ class ofApp : public ofBaseApp{
         int buffer; // for buffer between cards
     
         int tries;
-        float waitTime;
     
         ofVec2f findFreePosition();
         bool checkIfGameOver();
         void testIfCardsMatch();
     
+    // screens in the game 
+    void startScreen();
+    void gameScreen();
+    void gameOverScreen();
+    
+    //bool startGame;
+    string screen;
+    bool difficultyChosen;
+    bool replay;
+    bool addWrongChoiceText;
+    
     ofTrueTypeFont triesFont;
     ofTrueTypeFont matchFont;
     ofTrueTypeFont gameOverFont;
+    ofTrueTypeFont instructionsFont;
+    ofTrueTypeFont wrongChoiceFont;
     
-    ofColor gameOverColor;
     ofColor matchColor;
     ofColor triesColor;
+    ofColor instructionsColor;
     
     string matchString;
     bool drawMatchString;

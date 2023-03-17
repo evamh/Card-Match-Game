@@ -99,5 +99,5 @@ bool Card::checkIfClicked(int mouseX, int mouseY)
 
 //--------------------------------------------------------------
 bool Card::checkIfMatch(Card* otherCard) {
-    return otherCard->getFruit() == fruit;
+    return (otherCard->getFruit() == fruit && otherCard->getPosition() != cardPosition);
 }
