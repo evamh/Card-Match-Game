@@ -96,3 +96,8 @@ There are several things I would like to add to the game in the future, includin
 2. Button functionality - rather than using the keyboard for user input like choosing the difficulty or re-starting the game
 3. Improving the fonts and background - to make it more fun!
 4. Animation - animate the cards disappearing from the screen when the user matches two cards
+
+## Video
+
+https://git.arts.ac.uk/storage/user/650/files/e82926b0-5d5a-47ba-9bfa-67fd8939b611
+
