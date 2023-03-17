@@ -1,6 +1,6 @@
 # Card Match Game - match the cards together!
 
-For my final project, I recereated the classic card-match game. This is a memory game where the player is presented with an even number of cards face down, and have to flip them over two at a time in order to try and pair them together. If the two cards match, they get cleared. If they don't match, they are flipped over again. The game is over once all the cards are cleared!
+For my final project, I recreated the classic card-match game. This is a memory game where the player is presented with an even number of cards face down, and has to flip them over two at a time in order to try and pair them together. If the two cards match, they get cleared. If they don't match, they are flipped over again. The game is over either once all the cards are cleared, or if time runs out! 
 
 I recreated this game using openFrameworks and gave it a fruit theme. The aim of the game is to match all the fruits together!
 
@@ -8,32 +8,32 @@ I recreated this game using openFrameworks and gave it a fruit theme. The aim of
 
 ## Code
 
-This game is built in openFrameworks and uses the ofApp() class and a newly built Card class to run the main logic of the game. 
+This game is built in openFrameworks and uses the ofApp() class and a newly built Card class.
 
 ### Card 
 
-The **Card** class was built to store all of the information relating to a specific card. The variables of a Card include the position, width, height, the fruit and whether the card is active. There are also two ofImage variables, fruitImage and backgroundImage, to designate the front and back of the card.
+The **Card** class stores all of the information relating to a specific card. The variables of a Card include the position, width, height, the fruit and whether the card is active. There are also two ofImage variables, fruitImage and backgroundImage, to designate the front and back of the card.
 
 The methods in **Card** include getters, **draw()** which draws the card to the screen, **flip()** which switches between the front and the back of the card, **checkIfClicked(int mouseX, int mouseY)** to check if the user clicked on the card and **checkIfMatch(Card* otherCard)** to see if a card was matched to another. The game considers a match to be where two cards have the same fruit image and a different position on the screen (otherwise, the same card could be considered a match with itself!). 
 
 ### ofApp
 
-The main logic of the game is in ofApp. The code here sets up the variables for the game, including the various text fonts, the font colours and background colour, boolean values that are used to decide at which stage the game is at, and helper functions. All of the text is drawn to the screen using ofTrueTypeFont objects.
+The main logic of the game is in ofApp. The code here sets up the variables for the game, including the various text fonts, the font colours and background colour, timers, the screen status, and helper functions. All of the text is drawn to the screen using ofTrueTypeFont objects.
 
-At the start of the game, the function **setupGame()** is called which sets up a game instance. This function resets any variables (like the cards array, the number of tries, the start time) and initialises new instances of Card based on a random fruit and location. Each card is pushed into a cards vector array to keep track of all of them. The number of cards instantiated depends on the difficulty level that the user chose. 
+At the start of the game, the function **setupGame()** is called which creates a game instance. This function resets any variables (like the cards array, the number of tries, the start and elapsed time) and initialises new instances of Card based on a random fruit and location. Each card is pushed into a cards vector array to keep track of them. The number of cards, as well as the timer, is instantiated depends on the difficulty level that the user chose. 
 
 The game is composed of three screens:
 1. **Start** - provides the instructions for the game and allows the user to choose the difficulty level
 2. **Game** - the main game screen where the user can play the game
-3. **Game Over** - the screen shown once the user has matched all the cards. By pressing the space bar the user can go back to the Start screen and play again.
+3. **Game Over** - the screen shown once the user has matched all the cards/ran out of time. By pressing the space bar the user can go back to the Start screen and play again.
 
 A variable 'screen' keeps track of which screen is currently being drawn. 
 
 ### Start
-This is the first screen the user sees, and it provides instructions on how to begin the game. The user has to choose a difficulty level using the keyboard ('e' for easy, 'm' for medium and 'h' for hard). The difficulty level sets the total number of cards that the user has to match together:
-- 5 sets for difficulty = easy
-- 10 sets for difficulty = medium
-- 20 sets for difficulty = hard
+This is the first screen the user sees, and it provides instructions on how to begin the game. The user has to choose a difficulty level using the keyboard ('e' for easy, 'm' for medium and 'h' for hard). The difficulty level sets the total number of cards that the user has to match together as well as the timer:
+- Easy = 5 sets to match in 30s
+- Medium = 10 sets to match in 60s
+- Hard = 20 sets to match in 1:30
 
 If the user presses a character other than 'e', 'm' or 'h', text appears on the screen to warn that the character can't be recognised and to try again. 
 
@@ -44,32 +44,34 @@ The code for the start screen is in the function **startScreen()**.
 ### Game 
 This is the main screen where the user can play the game! Depending on the difficulty level chosen, a number of cards will appear on the screen at random locations. The user needs to click on a card, one at a time, to match them up. Only two cards can be face up at any time. If the second card matches the first, they're cleared from the screen. Otherwise, they turn back over.
 
-<img src="https://git.arts.ac.uk/storage/user/650/files/79576c43-7199-427f-9a82-595765528b86" width="30%"> <img src="https://git.arts.ac.uk/storage/user/650/files/95e68339-8a38-4f8a-ad64-db6747f331b5" width="30%"> <img src="https://git.arts.ac.uk/storage/user/650/files/a115fed7-6264-4315-9bca-52f58877ddb7" width="30%">
+<img src="https://git.arts.ac.uk/storage/user/650/files/7ece5513-2b89-4488-95f2-a09fcaf07b34" width="30%"> <img src="https://git.arts.ac.uk/storage/user/650/files/e1ede58d-1251-4430-b180-3887b8e33ce6" width="30%"> <img src="https://git.arts.ac.uk/storage/user/650/files/3f4c1ecd-dbd4-422a-ab0d-984e042df688" width="30%">
 
-The number of tries is recorded and displayed at the top of the screen. A try counts as every time a user attempts to match a set of cards (so clicking on two cards = 1 try). 
+The number of tries is recorded and displayed at the top of the screen. A try counts as every time a user attempts to match a set of cards (so clicking on two cards = 1 try). The time left is also displayed to the left. 
 
-The locations of each card are randomly generated using a helper function **findFreePosition()** which returns an ofVec2f object. This function uses a do...while loop to generate a random set of (x,y) coordinates and to loop over each existing card to make sure there is no overlap. If there is an overlap with any card, it breaks and goes into the next loop (so tries again with a new set of randomly generated coordinates). Otherwise, it assumes a free position and returns those x, y values in an ofVec2f object. This function is called each time a new card is created. 
+The locations of each card are randomly generated using a helper function **findFreePosition()** which returns an ofVec2f object. This function uses a do...while loop to generate a random set of (x,y) coordinates and check it doesn't overlap with any other cards. If there is an overlap with any card, it breaks and goes into the next loop (tries again with a new set of randomly generated coordinates). Otherwise, it assumes a free position and returns those x, y values in an ofVec2f object. This function is called each time a new card is created. 
 
 The helper function **testIfCardsMatch()** is called every time two cards are clicked. It checks that the second card matches the first (using the checkIfMatch() function in the Card class), and if so, sets the active property of both cards to false. This ensures that they aren't drawn to the screen in the subsequent frames. Text is also displayed at the top of the screen for 3 seconds to indicate a match was made. 
 
-<img src="https://git.arts.ac.uk/storage/user/650/files/1164ff01-9cd9-497c-a9b5-6a1d4109a0a5" width="45%"> <img src="https://git.arts.ac.uk/storage/user/650/files/0f853a7b-c0af-4b92-aee2-d6f42b99ba8f" width="45%">
+<img src="https://git.arts.ac.uk/storage/user/650/files/4ea9a060-79be-425b-98c6-c610cee7f062" width="45%"> <img src="https://git.arts.ac.uk/storage/user/650/files/f518344b-dea7-4a28-bec6-2843917dc665" width="45%">
 
-The function **checkifGameOver()** runs every frame to check if the game is over by determining that all cards are cleared (more technically, that their 'active' variable is set to false).
+The function **checkifGameOver()** runs every frame to check if the game is over by checking whether time ran out (in which case win = false) or that all cards are cleared (more technically, that their 'active' variable is set to false, and in which case win = true).
 
 The code for the game screen is in the function **gameScreen()**.
 
-
 ### Game Over
-The game moves into the 'gameOver' screen once all the cards are cleared. This screen tells the user the game is over and to press the spacebar if they want to replay the game. The keyPressed() function waits for the spacebar to be pressed and if so, sets the 'replay' variable to true so that the game goes back to the start screen. Back in the start screen, the **setupGame()** function is called to reset all game-dependent variables (such as the cards, number of tries, etc). 
+The game moves into the 'gameOver' screen if either condition is met:
+1. All the cards are cleared -> win
+2. Time ran out -> lose
 
-<img src="https://git.arts.ac.uk/storage/user/650/files/8ea0f8c9-0787-4b0a-8c98-0ca0acedf24e" width="45%">
+Depending on the result, the gameOver screen tells the user that they matched all the cards or that time ran out. In both cases, it will inform the user that they can press the spacebar if they want to play again. The keyPressed() function waits for the spacebar to be pressed and if so, sets the 'replay' variable to true so that the game goes back to the start screen. Back in the start screen, the **setupGame()** function is called to reset all game-dependent variables (such as the cards, number of tries, timers, etc). 
 
+<img src="https://git.arts.ac.uk/storage/user/650/files/8ea0f8c9-0787-4b0a-8c98-0ca0acedf24e" width="45%"> <img src="https://git.arts.ac.uk/storage/user/650/files/f18e870b-4fd1-4f20-a7ec-1f492cd1b485" width="45%">
 
 The code for the game over screen is in the function **gameOverScreen()**. 
 
 ## Cards
 
-I drew the cards using the Adobe Fresco app, and chose to do a fruit theme. Each fruit card has a color scheme, a border drawn in the main color, a background drawn in a lighter shade of that color, and the fruit itself in the center. I drew an image for the back of the cards (first image below) and separate cards for the following fruits:
+I drew the cards using the Adobe Fresco app, and chose to do a fruit theme. Each fruit has a color scheme which influnces how the card is created. A border is drawn in the main color, a background drawn in a lighter shade of that color, and the fruit itself is drawn in the center. In addition, I drew an image for the back of the cards (first image below). I created cards for the following fruits:
 - Apple
 - Apricot
 - Blueberry
@@ -90,7 +92,7 @@ The cards are drawn in the game via ofImage objects.
 ## Future additions
 
 There are several things I would like to add to the game in the future, including:
-1. A timed version - the user has to clear all the cards before the time runs out!
-2. Sounds and audio - such as background music and sounds when the user matches two cards 
-3. Button functionality - rather than using the keyboard for difficulty/restarting the game 
+1. Sounds and audio - such as background music and sounds when the user matches two cards 
+2. Button functionality - rather than using the keyboard for user input like choosing the difficulty or re-starting the game
+3. Improving the fonts and background - to make it more fun!
 4. Animation - animate the cards disappearing from the screen when the user matches two cards
